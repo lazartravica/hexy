@@ -1,19 +1,31 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import rafgfxlib.GameHost;
 import rafgfxlib.GameHost.GFMouseButton;
 import rafgfxlib.GameState;
+import rafgfxlib.Util;
 
 public class Menu extends GameState {
 
     private static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
+    private static final Color TEXT_COLOR = new Color(176, 128, 82);
 
     private MenuTileset menuTileset;
+
+    private String[] menuItems;
+    private int selectedItem = 0;
 
     public Menu(GameHost host) {
         super(host);
 
         menuTileset = new MenuTileset();
+
+        menuItems = new String[]{
+                "New game",
+                "Rules",
+                "Exit",
+        };
     }
 
     @Override
@@ -40,12 +52,23 @@ public class Menu extends GameState {
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, sw, sh);
 
-        // Draw the name of the game in the bottom left corner.
-        g.setColor(Color.DARK_GRAY);
+        // Draw the options
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //@TODO Turn on AA in Gamehost.java setHighQuality()
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g.drawString("Hexy", 5, sh - 15);
+        g.setColor(TEXT_COLOR);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 30));
 
+        BufferedImage itemUnselected = Util.loadImage("hexyAssets/menuItems/unselected.png");
+
+        for(int i = 0; i < menuItems.length; i++) {
+            BufferedImage itemImage = itemUnselected;
+            if(selectedItem == i)
+                itemImage = Util.loadImage("hexyAssets/menuItems/" + menuItems[i] + ".png");
+
+            g.drawString(menuItems[i], 80, 500 + i * 80);
+            g.drawImage(itemImage, 10, 455 + i * 80, null);
+        }
+
+        // Draw the tileset
         menuTileset.renderTileset(g);
     }
 
@@ -70,7 +93,37 @@ public class Menu extends GameState {
 
     @Override
     public void handleKeyDown(int keyCode) {
+        /*
+        Key Codes
+        ---------------
+        Arrow Up:   38
+        Arrow Down: 40
+        Return:     10
+         */
 
+        switch(keyCode) {
+            case 38:
+                selectedItem--;
+                break;
+            case 40:
+                selectedItem++;
+                break;
+            case 10:
+                switch(selectedItem) {
+                    case 0: // New game
+                        System.out.println("We should now change the gamestate");
+                        break;
+                    case 1: // Rules
+                        System.out.println("Something fancy should happen now.");
+                        break;
+                    case 2: // Exit
+                        System.exit(0);
+                        break;
+                }
+        }
+
+        if(selectedItem < 0) selectedItem = menuItems.length - 1;
+        if(selectedItem > menuItems.length - 1) selectedItem = 0;
     }
 
     @Override
