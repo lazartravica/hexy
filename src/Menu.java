@@ -14,7 +14,7 @@ public class Menu extends GameState {
     private MenuTileset menuTileset;
 
     private String[] menuItems;
-    private int selectedItem = 0;
+    private int selectedItem = -1;
 
     public Menu(GameHost host) {
         super(host);
@@ -78,7 +78,7 @@ public class Menu extends GameState {
 
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
-
+        System.out.println("The state should change now!");
     }
 
     @Override
@@ -88,7 +88,11 @@ public class Menu extends GameState {
 
     @Override
     public void handleMouseMove(int x, int y) {
-
+        if(x > 8 && x < 245 && y > 460) {
+            selectedItem = (y - 460) / 70;
+        } else {
+           selectedItem = -1;
+        }
     }
 
     @Override
