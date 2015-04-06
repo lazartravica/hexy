@@ -78,7 +78,7 @@ public class Menu extends GameState {
 
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
-        System.out.println("The state should change now!");
+        handleMenuItemSelection();
     }
 
     @Override
@@ -113,17 +113,7 @@ public class Menu extends GameState {
                 selectedItem++;
                 break;
             case 10:
-                switch(selectedItem) {
-                    case 0: // New game
-                        System.out.println("We should now change the gamestate");
-                        break;
-                    case 1: // Rules
-                        System.out.println("Something fancy should happen now.");
-                        break;
-                    case 2: // Exit
-                        System.exit(0);
-                        break;
-                }
+                handleMenuItemSelection();
         }
 
         if(selectedItem < 0) selectedItem = menuItems.length - 1;
@@ -133,5 +123,19 @@ public class Menu extends GameState {
     @Override
     public void handleKeyUp(int keyCode) {
 
+    }
+
+    private void handleMenuItemSelection() {
+        switch(selectedItem) {
+            case 0: // New game
+                System.out.println("We should now change the gamestate");
+                break;
+            case 1: // Rules
+                System.out.println("Something fancy should happen now.");
+                break;
+            case 2: // Exit
+                System.exit(0);
+                break;
+        }
     }
 }
