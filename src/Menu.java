@@ -19,7 +19,7 @@ public class Menu extends GameState {
     public Menu(GameHost host) {
         super(host);
 
-        menuTileset = new MenuTileset();
+        menuTileset = new MenuTileset(host.getHeight());
 
         menuItems = new String[]{
                 "New game",
