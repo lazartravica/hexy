@@ -8,8 +8,12 @@ public class Menu extends GameState {
 
     private static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
 
+    private MenuTileset menuTileset;
+
     public Menu(GameHost host) {
         super(host);
+
+        menuTileset = new MenuTileset();
     }
 
     @Override
@@ -42,9 +46,7 @@ public class Menu extends GameState {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
         g.drawString("Hexy", 5, sh - 15);
 
-        // Render the tileset
-        MenuTileset menuTileset = new MenuTileset(sw, sh, g);
-        menuTileset.renderTileset();
+        menuTileset.renderTileset(g);
     }
 
     @Override
