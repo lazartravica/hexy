@@ -1,8 +1,11 @@
+package states;
 import rafgfxlib.Util;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import core.Tile;
 
 public class MenuTile extends Tile {
 

@@ -1,3 +1,4 @@
+package core;
 import rafgfxlib.Util;
 
 import java.awt.*;
