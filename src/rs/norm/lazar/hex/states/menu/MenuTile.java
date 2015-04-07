@@ -1,4 +1,7 @@
+package rs.norm.lazar.hex.states.menu;
+
 import rafgfxlib.Util;
+import rs.norm.lazar.hex.core.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

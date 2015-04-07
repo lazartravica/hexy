@@ -1,12 +1,14 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
+package rs.norm.lazar.hex.states.menu;
 
 import rafgfxlib.GameHost;
 import rafgfxlib.GameHost.GFMouseButton;
 import rafgfxlib.GameState;
 import rafgfxlib.Util;
 
-public class Menu extends GameState {
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public class MenuState extends GameState {
 
     private static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
     private static final Color TEXT_COLOR = new Color(176, 128, 82);
@@ -16,7 +18,7 @@ public class Menu extends GameState {
     private String[] menuItems;
     private int selectedItem = -1;
 
-    public Menu(GameHost host) {
+    public MenuState(GameHost host) {
         super(host);
 
         menuTileset = new MenuTileset(host.getHeight());

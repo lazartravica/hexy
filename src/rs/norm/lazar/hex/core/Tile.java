@@ -1,3 +1,5 @@
+package rs.norm.lazar.hex.core;
+
 import rafgfxlib.Util;
 
 import java.awt.*;
