@@ -1,3 +1,8 @@
+package rs.norm.lazar.hex.states.menu;
+
+import rs.norm.lazar.hex.core.Tile;
+import rs.norm.lazar.hex.core.Tileset;
+
 import java.awt.*;
 
 public class MenuTileset extends Tileset {

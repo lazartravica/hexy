@@ -1,3 +1,7 @@
+package rs.norm.lazar.hex.core;
+
+import rs.norm.lazar.hex.core.Tile;
+
 import java.awt.*;
 
 public abstract class Tileset {
