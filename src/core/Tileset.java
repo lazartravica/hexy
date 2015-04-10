@@ -58,9 +58,6 @@ public abstract class Tileset {
     }
 
     public Tile pixelToTile(int x, int y) {
-        x -= offsetX;
-        y -= offsetY;
-
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
                 if (tileset[iX][iY].containsPixel(x, y))
