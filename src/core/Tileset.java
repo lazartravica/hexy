@@ -34,9 +34,8 @@ public abstract class Tileset {
     protected void renderTiles(Graphics2D g) {
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
+                tileset[iX][iY].updateZOffset();
                 tileset[iX][iY] = renderTile(tileset[iX][iY], g);
-
-
             }
         }
     }

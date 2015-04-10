@@ -25,10 +25,9 @@ public class MenuTileset extends Tileset {
     public void generateTiles() {
         for (int iX = 0; iX < horizontalSize; iX++) {
             for (int iY = 0; iY < verticalSize; iY++) {
-                int positionZ = 200 * (iX + iY) + 100 * (10 - iX);
-                tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", iX, iY, positionZ, g);
+                tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", iX, iY, g);
+                tileset[iX][iY].offsetZ = 200 * (iX + iY) + 100 * (10 - iX) + 100;
                 tileset[iX][iY].hex = getHex(tileset[iX][iY].centerX, tileset[iX][iY].centerY, tileset[iX][iY].tileWidth);
-
             }
         }
     }
@@ -42,18 +41,18 @@ public class MenuTileset extends Tileset {
     @Override
     protected Tile renderTile(Tile tile, Graphics2D g) {
         MenuTile menuTile = (MenuTile) tile;
-        if (menuTile.positionZ > 0)
-            menuTile.positionZ -= 50;
+//        if (menuTile.positionZ > 0)
+//            menuTile.positionZ -= 50;
 
-        g.drawImage(tile.image, tile.positionX + offsetX, tile.positionY + offsetY + menuTile.positionZ, null);
+        g.drawImage(tile.image, tile.positionX + offsetX, tile.positionY + offsetY + menuTile.offsetZ, null);
 
         for (MenuTile.Flower flower : menuTile.flowers) {
-            g.drawImage(flower.image, tile.positionX + flower.positionX + offsetX, tile.positionY + flower.positionY + offsetY + menuTile.positionZ, null);
+            g.drawImage(flower.image, tile.positionX + flower.positionX + offsetX, tile.positionY + flower.positionY + offsetY + menuTile.offsetZ, null);
         }
 
         if (menuTile.tree != null) {
             MenuTile.Tree tree = menuTile.tree;
-            g.drawImage(tree.image, tile.positionX + tree.positionX + offsetX, tile.positionY + tree.positionY + offsetY + menuTile.positionZ, null);
+            g.drawImage(tree.image, tile.positionX + tree.positionX + offsetX, tile.positionY + tree.positionY + offsetY + menuTile.offsetZ, null);
         }
         return menuTile;
     }

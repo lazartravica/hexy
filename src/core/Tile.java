@@ -61,6 +61,10 @@ public abstract class Tile {
     public Flower[] flowers;
     public Tree tree;
 
+    public int deltaZ;
+    public int offsetZ;
+    public int desiredOffsetZ;
+
     public Tile(String fileName, int coordX, int coordY, Graphics2D g) {
         image = Util.loadImage(fileName);
 
@@ -98,6 +102,11 @@ public abstract class Tile {
         for (int i = 0; i < numberOfFlowers; i++) {
             flowers[i] = new Flower(tileWidth, tileHeight);
         }
+    }
+
+    public void updateZOffset() {
+        if(desiredOffsetZ != offsetZ)
+            offsetZ -= deltaZ;
     }
 
     protected abstract void generateDoodads();
