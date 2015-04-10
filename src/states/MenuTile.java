@@ -13,6 +13,7 @@ public class MenuTile extends Tile {
         BufferedImage image;
         int positionX;
         int positionY;
+        
 
         public Flower(int tileWidth, int tileHeight) {
             Random r = new Random();
@@ -45,7 +46,7 @@ public class MenuTile extends Tile {
     }
 
     public static int width = 65;
-    public static int height = 65;
+    public static int height = 65;//(int) (2*width/Math.sqrt(3));
 
     public Flower[] flowers;
 
@@ -57,9 +58,12 @@ public class MenuTile extends Tile {
         super(fileName, coordX, coordY, width, height, g);
 
         this.positionZ = screenHeight + 100;
-
+        
         generateFlowers();
         generateTree();
+       
+      
+    
     }
 
     private void generateTree() {
@@ -80,4 +84,6 @@ public class MenuTile extends Tile {
             flowers[i] = new Flower(width, height);
         }
     }
+    
+    
 }

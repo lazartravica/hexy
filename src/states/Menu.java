@@ -9,7 +9,7 @@ import rafgfxlib.Util;
 
 public class Menu extends GameState {
 
-    private static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
+    public static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
     private static final Color TEXT_COLOR = new Color(176, 128, 82);
 
     private MenuTileset menuTileset;
@@ -70,7 +70,12 @@ public class Menu extends GameState {
         }
 
         // Draw the tileset
+        
+       
         menuTileset.renderTileset(g);
+      //  g.drawPolygon(menuTileset.giveHex(selectedItem, selectedItem));
+      //  menuTileset.giveHex(selectedItem, selectedItem, g);
+       
     }
 
     @Override
@@ -80,6 +85,26 @@ public class Menu extends GameState {
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
         handleMenuItemSelection();
+      System.out.println(menuTileset.getTilePosition(new Point(x,y)));
+      
+      
+      Point ij =menuTileset.getTilePosition(new Point(x,y)); 
+      System.out.println(ij);
+
+      
+      MenuTile clickedTile = (MenuTile) menuTileset.getTileFromPosition(ij.x, ij.y);
+      
+      if(clickedTile != null) {
+      int[][] neigbours = menuTileset.neighbours(clickedTile);
+      String s = "";
+      for(int i=0;i<6;i++){
+    	  for(int j = 0; j<2;j++)
+    		  s+=neigbours[i][j]+ " ";
+    	  System.out.println(s);
+    	  s="";
+    	 
+         }
+      }
     }
 
     @Override
@@ -94,6 +119,8 @@ public class Menu extends GameState {
         } else {
            selectedItem = -1;
         }
+        
+     
     }
 
     @Override
