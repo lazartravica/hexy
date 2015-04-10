@@ -87,11 +87,13 @@ public class Game extends GameState {
 
     @Override
     public void handleMouseMove(int x, int y) {
-        gameTileset.removeNudges();
-        GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
+        if(gameTileset.doneEntranceAnimation) {
+            gameTileset.removeNudges();
+            GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
 
-        if (gameTile != null)
-            gameTile.nudgeTile();
+            if (gameTile != null)
+                gameTile.nudgeTile();
+        }
     }
 
     @Override

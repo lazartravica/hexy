@@ -18,6 +18,7 @@ public abstract class Tileset {
     protected int offsetY;
 
     public boolean animationInProgress = false;
+    public boolean doneEntranceAnimation = false;
 
     // The 2d array which will store all the tiles.
     protected Tile[][] tileset;
@@ -55,6 +56,8 @@ public abstract class Tileset {
             }
         }
         animationInProgress = didAnimation;
+        if(!(animationInProgress || doneEntranceAnimation))
+            doneEntranceAnimation = true;
     }
 
     public Tile pixelToTile(int x, int y) {
