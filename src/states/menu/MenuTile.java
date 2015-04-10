@@ -1,4 +1,4 @@
-package states;
+package states.menu;
 import rafgfxlib.Util;
 
 import java.awt.*;

@@ -1,5 +1,5 @@
 import rafgfxlib.GameHost;
-import states.Menu;
+import states.menu.Menu;
 
 public class Main {
     public static void main(String[] args) {

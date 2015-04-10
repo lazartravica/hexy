@@ -1,9 +1,10 @@
-package states;
+package states.menu;
 
 import java.awt.*;
 
 import core.Tile;
 import core.Tileset;
+import states.menu.MenuTile;
 
 public class MenuTileset extends Tileset {
 
