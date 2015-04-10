@@ -16,15 +16,4 @@ public class MenuTileset extends Tileset {
 
         generateTiles();
     }
-
-    @Override
-    public void generateTiles() {
-        for (int iX = 0; iX < horizontalSize; iX++) {
-            for (int iY = 0; iY < verticalSize; iY++) {
-                tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", iX, iY, g);
-                tileset[iX][iY].offsetZAnimationDelay = 4 * (iX + iY) + 2 * (10 - iX);
-                tileset[iX][iY].hexagon = tileset[iX][iY].getHexagon();
-            }
-        }
-    }
 }

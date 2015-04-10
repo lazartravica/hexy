@@ -33,14 +33,14 @@ public abstract class Tile {
     public int desiredOffsetZ = 0;
     public int offsetZAnimationDelay;
 
-    public Tile(String fileName, int coordX, int coordY, Graphics2D g) {
+    public Tile(String fileName, int positionX, int positionY, Graphics2D g) {
         image = Util.loadImage(fileName);
 
-        positionX = (coordX * tileWidth) + (coordY * tileWidth / 2);
-        positionY = coordY * (int) Math.round(tileHeight * 0.75);
+        this.positionX = positionX;
+        this.positionY = positionY;
 
-        centerX = positionX + tileWidth / 2;
-        centerY = positionY + tileHeight / 2;
+        centerX = this.positionX + tileWidth / 2;
+        centerY = this.positionY + tileHeight / 2;
         size = (int) (tileWidth / Math.sqrt(3));
         hexagon = new Polygon();
 

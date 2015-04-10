@@ -7,8 +7,8 @@ import core.Tile;
 
 public class MenuTile extends Tile {
 
-    public MenuTile(String fileName, int coordX, int coordY, Graphics2D g) {
-        super(fileName, coordX, coordY, g);
+    public MenuTile(String fileName, int positionX, int positionY, Graphics2D g) {
+        super(fileName, positionX, positionY, g);
     }
 
     @Override

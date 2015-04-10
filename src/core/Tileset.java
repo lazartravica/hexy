@@ -29,9 +29,20 @@ public abstract class Tileset {
         this.verticalSize = verticalSize;
         tileset = new Tile[horizontalSize][verticalSize];
 
+        generateTiles();
     }
 
-    protected abstract void generateTiles();
+    public void generateTiles() {
+        for (int iX = 0; iX < horizontalSize; iX++) {
+            for (int iY = 0; iY < verticalSize; iY++) {
+                int positionX = (iX * Tile.tileWidth) + (iY * Tile.tileWidth / 2) + offsetX;
+                int positionY = iY * (int) Math.round(Tile.tileHeight * 0.75) + offsetY;
+                tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", positionX, positionY, g);
+                tileset[iX][iY].offsetZAnimationDelay = 4 * (iX + iY) + 2 * (10 - iX);
+                tileset[iX][iY].hexagon = tileset[iX][iY].getHexagon();
+            }
+        }
+    }
 
     public void renderTileset(Graphics2D g) {
         boolean didAnimation = false;
@@ -45,6 +56,9 @@ public abstract class Tileset {
     }
 
     public Tile pixelToTile(int x, int y) {
+        x -= offsetX;
+        y -= offsetY;
+
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
                 if (tileset[iX][iY].containsPixel(x, y))
