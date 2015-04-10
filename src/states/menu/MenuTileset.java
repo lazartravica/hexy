@@ -4,7 +4,6 @@ import java.awt.*;
 
 import core.Tile;
 import core.Tileset;
-import states.menu.MenuTile;
 
 public class MenuTileset extends Tileset {
 
@@ -28,7 +27,7 @@ public class MenuTileset extends Tileset {
             for (int iY = 0; iY < verticalSize; iY++) {
                 int positionZ = 200 * (iX + iY) + 100 * (10 - iX);
                 tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", iX, iY, positionZ, g);
-                tileset[iX][iY].hex = getHex(tileset[iX][iY].centerX, tileset[iX][iY].centerY, tileset[iX][iY].size);
+                tileset[iX][iY].hex = getHex(tileset[iX][iY].centerX, tileset[iX][iY].centerY, tileset[iX][iY].tileWidth);
 
             }
         }
