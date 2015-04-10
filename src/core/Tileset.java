@@ -1,9 +1,12 @@
 package core;
 
+import states.menu.MenuTile;
+
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.util.LinkedList;
+import java.util.Random;
 
 public abstract class Tileset {
 
@@ -13,6 +16,8 @@ public abstract class Tileset {
     // If the tileset should be rendered from the top left corner: 0px 0px;
     protected int offsetX;
     protected int offsetY;
+
+    public boolean animationInProgress = false;
 
     // The 2d array which will store all the tiles.
     protected Tile[][] tileset;
@@ -26,21 +31,18 @@ public abstract class Tileset {
 
     }
 
-
     protected abstract void generateTiles();
 
-    protected abstract void renderTileset(Graphics2D g);
-
-    protected void renderTiles(Graphics2D g) {
+    public void renderTileset(Graphics2D g) {
+        boolean didAnimation = false;
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
-                tileset[iX][iY].updateZOffset();
+                didAnimation = tileset[iX][iY].updateZOffset() || didAnimation;
                 tileset[iX][iY] = renderTile(tileset[iX][iY], g);
             }
         }
+        animationInProgress = didAnimation;
     }
-
-    protected abstract Tile renderTile(Tile tile, Graphics2D g);
 
     public Point getTilePosition(Tile t) {
         for (int i = 0; i < horizontalSize; i++)
@@ -69,13 +71,14 @@ public abstract class Tileset {
     }
 
 
-    public Point getTilePosition(Point a) {
+    public Tile getTilePosition(int x, int y) {
+        Point a = new Point(x, y);
         for (int i = 0; i < horizontalSize; i++)
             for (int j = 0; j < verticalSize; j++) {
                 if (tileset[i][j].containsPoint(a))
-                    return new Point(i, j);
+                    return tileset[i][j];
             }
-        return new Point(-1, -1);
+        return null;
     }
 
     private int[][] directions = new int[][]{{0, -1}, {-1, 0}, {1, -1}, {-1, 1}, {0, 1}, {1, 0}};
@@ -105,5 +108,32 @@ public abstract class Tileset {
         }
         return potentialNeighbours;
     }
+
+    public void startExitAnimation() {
+        animationInProgress = true;
+
+        Random r = new Random();
+        for (int iY = 0; iY < verticalSize; iY++) {
+            for (int iX = 0; iX < horizontalSize; iX++) {
+                tileset[iX][iY].offsetZAnimationDelay = 4 * (20 - iX - iY) + iX;
+                tileset[iX][iY].desiredOffsetZ = 900;
+                tileset[iX][iY].deltaZ = 50;
+            }
+        }
+    }
+
+    protected Tile renderTile(Tile tile, Graphics2D g) {
+        g.drawImage(tile.image, tile.positionX + offsetX, tile.positionY + offsetY + tile.offsetZ, null);
+
+        for (Tile.Flower flower : tile.flowers) {
+            g.drawImage(flower.image, tile.positionX + flower.positionX + offsetX, tile.positionY + flower.positionY + offsetY + tile.offsetZ, null);
+        }
+
+        if (tile.tree != null) {
+            Tile.Tree tree = tile.tree;
+            g.drawImage(tree.image, tile.positionX + tree.positionX + offsetX, tile.positionY + tree.positionY + offsetY + tile.offsetZ, null);
+        }
+
+        return tile;
+    }
 }
-    

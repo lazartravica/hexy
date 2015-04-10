@@ -2,6 +2,7 @@ package states.menu;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.*;
 
 import rafgfxlib.GameHost;
 import rafgfxlib.GameHost.GFMouseButton;
@@ -11,17 +12,18 @@ import rafgfxlib.Util;
 public class Menu extends GameState {
 
     public static final Color BACKGROUND_COLOR = new Color(227, 239, 255);
-    private static final Color TEXT_COLOR = new Color(176, 128, 82);
+    public static final Color TEXT_COLOR = new Color(176, 128, 82);
 
     private MenuTileset menuTileset;
 
     private String[] menuItems;
     private int selectedItem = -1;
+    private int queuedAction = -1;
 
     public Menu(GameHost host) {
         super(host);
 
-        menuTileset = new MenuTileset(host.getHeight());
+        menuTileset = new MenuTileset();
 
         menuItems = new String[]{
                 "New game",
@@ -81,6 +83,20 @@ public class Menu extends GameState {
 
     @Override
     public void update() {
+        switch(queuedAction) {
+            case 0:
+                if(!menuTileset.animationInProgress)
+                    host.setState("game");
+                break;
+            case 1:
+                if(!menuTileset.animationInProgress)
+                    System.exit(0);
+                break;
+            case 2:
+                if(!menuTileset.animationInProgress)
+                    System.exit(0);
+                break;
+        }
     }
 
     @Override
@@ -100,8 +116,6 @@ public class Menu extends GameState {
         } else {
             selectedItem = -1;
         }
-
-
     }
 
     @Override
@@ -137,14 +151,16 @@ public class Menu extends GameState {
     private void handleMenuItemSelection() {
         switch (selectedItem) {
             case 0: // New game
-                System.out.println("We should now change the gamestate");
+                menuTileset.startExitAnimation();
                 break;
             case 1: // Rules
-                System.out.println("Something fancy should happen now.");
+                menuTileset.startExitAnimation();
                 break;
             case 2: // Exit
-                System.exit(0);
+                menuTileset.startExitAnimation();
                 break;
         }
+
+        queuedAction = selectedItem;
     }
 }

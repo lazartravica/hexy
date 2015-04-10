@@ -61,9 +61,10 @@ public abstract class Tile {
     public Flower[] flowers;
     public Tree tree;
 
-    public int deltaZ;
-    public int offsetZ;
-    public int desiredOffsetZ;
+    public int deltaZ = 50;
+    public int offsetZ = 900;
+    public int desiredOffsetZ = 0;
+    public int offsetZAnimationDelay;
 
     public Tile(String fileName, int coordX, int coordY, Graphics2D g) {
         image = Util.loadImage(fileName);
@@ -104,10 +105,18 @@ public abstract class Tile {
         }
     }
 
-    public void updateZOffset() {
-        if(desiredOffsetZ != offsetZ)
-            offsetZ -= deltaZ;
+    public boolean updateZOffset() {
+        if(desiredOffsetZ != offsetZ) {
+            if (--offsetZAnimationDelay <= 0)
+                if(desiredOffsetZ  < offsetZ)
+                    offsetZ -= deltaZ;
+                else
+                    offsetZ += deltaZ;
+            return true;
+        }
+        return false;
     }
 
     protected abstract void generateDoodads();
+
 }

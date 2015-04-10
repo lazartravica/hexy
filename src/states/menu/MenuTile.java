@@ -9,9 +9,6 @@ public class MenuTile extends Tile {
 
     public MenuTile(String fileName, int coordX, int coordY, Graphics2D g) {
         super(fileName, coordX, coordY, g);
-
-        deltaZ = 50;
-        desiredOffsetZ = 0;
     }
 
     @Override
