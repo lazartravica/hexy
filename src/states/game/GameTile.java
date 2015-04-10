@@ -1,19 +1,18 @@
 package states.game;
 
 import core.Tile;
+import core.doodads.Flower;
 import rafgfxlib.Util;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GameTile extends Tile {
 
-    public enum Player {
-        RED_PLAYER,
-        BLUE_PLAYER,
-        NONE
-    }
-
     public Player player = Player.NONE;
+
+    public BufferedImage RED_IMAGE = Util.loadImage("hexyAssets/tiles/red.png");
+    public BufferedImage BLUE_IMAGE = Util.loadImage("hexyAssets/tiles/blue.png");
 
     public GameTile(String fileName, int coordX, int coordY, Graphics2D g) {
         super(fileName, coordX, coordY, g);
@@ -28,6 +27,33 @@ public class GameTile extends Tile {
     public void nudgeTile() {
         desiredOffsetZ = -24;
         deltaZ = 3;
-        image = Util.loadImage("hexyAssets/tiles/2.png");
+        image = Util.loadImage("hexyAssets/tiles/selected.png");
+    }
+
+    public Tile render(Graphics2D g) {
+        if (player == Player.NONE) {
+            g.drawImage(image, positionX, positionY + offsetZ, null);
+
+            for (Flower flower : flowers) {
+                g.drawImage(flower.image, positionX + flower.positionX, positionY + flower.positionY + offsetZ, null);
+            }
+
+            if (tree != null) {
+                g.drawImage(tree.image, positionX + tree.positionX, positionY + tree.positionY + offsetZ, null);
+            }
+        } else if(player == Player.RED)
+            g.drawImage(RED_IMAGE, positionX, positionY + offsetZ, null);
+        else if(player == Player.BLUE)
+            g.drawImage(BLUE_IMAGE, positionX, positionY + offsetZ, null);
+
+        return this;
+    }
+
+    public boolean changeState(Player currentTurn) {
+        if(player == Player.NONE) {
+            player = currentTurn;
+            return true;
+        }
+        return false;
     }
 }

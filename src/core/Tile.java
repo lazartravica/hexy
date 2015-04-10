@@ -28,7 +28,7 @@ public abstract class Tile {
     public Flower[] flowers;
     public Tree tree;
 
-    public int deltaZ = 50;
+    public int deltaZ = 100;
     public int offsetZ = 900;
     public int desiredOffsetZ = 0;
     public int offsetZAnimationDelay;

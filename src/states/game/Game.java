@@ -9,12 +9,7 @@ import java.awt.*;
 
 public class Game extends GameState {
 
-    public enum Turn {
-        RED_PLAYER,
-        BLUE_PLAYER
-    }
-
-    public Turn currentTurn = Turn.RED_PLAYER;
+    public Player currentTurn = Player.RED;
 
     public GameTileset gameTileset;
 
@@ -53,13 +48,17 @@ public class Game extends GameState {
         // Draw which player's turn it is
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //@TODO Turn on AA in Gamehost.java setHighQuality()
 
-        g.setColor(RED_COLOR);
-        if (currentTurn == Turn.BLUE_PLAYER)
-            g.setColor(BLUE_COLOR);
-
         g.setFont(new Font("TimesRoman", Font.BOLD, 30));
 
-        g.drawString("Red player's turn", 15, sh - 40);
+        if (currentTurn == Player.RED) {
+            g.setColor(RED_COLOR);
+            g.drawString("Red player's turn", 15, sh - 40);
+        }
+        if (currentTurn == Player.BLUE) {
+            g.setColor(BLUE_COLOR);
+            g.drawString("Blue player's turn", 15, sh - 40);
+        }
+
         gameTileset.renderTileset(g);
     }
 
@@ -70,6 +69,14 @@ public class Game extends GameState {
 
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
+        GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
+        if(gameTile != null) {
+            if(gameTile.changeState(currentTurn))
+                if(currentTurn == Player.RED)
+                    currentTurn = Player.BLUE;
+                else
+                    currentTurn = Player.RED;
+        }
 
     }
 
