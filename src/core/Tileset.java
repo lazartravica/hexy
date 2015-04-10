@@ -24,6 +24,8 @@ public abstract class Tileset {
 
     protected Graphics2D g;
 
+    protected abstract Tile createTile(String imagePath, int positionX, int positionY, Graphics2D g);
+
     public Tileset(int horizontalSize, int verticalSize) {
         this.horizontalSize = horizontalSize;
         this.verticalSize = verticalSize;
@@ -37,7 +39,7 @@ public abstract class Tileset {
             for (int iY = 0; iY < verticalSize; iY++) {
                 int positionX = (iX * Tile.tileWidth) + (iY * Tile.tileWidth / 2) + offsetX;
                 int positionY = iY * (int) Math.round(Tile.tileHeight * 0.75) + offsetY;
-                tileset[iX][iY] = new MenuTile("hexyAssets/tiles/1.png", positionX, positionY, g);
+                tileset[iX][iY] = createTile("hexyAssets/tiles/1.png", positionX, positionY, g);
                 tileset[iX][iY].offsetZAnimationDelay = 4 * (iX + iY) + 2 * (10 - iX);
                 tileset[iX][iY].hexagon = tileset[iX][iY].getHexagon();
             }

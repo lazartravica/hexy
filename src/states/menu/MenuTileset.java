@@ -16,4 +16,9 @@ public class MenuTileset extends Tileset {
 
         generateTiles();
     }
+
+    @Override
+    protected Tile createTile(String imagePath, int positionX, int positionY, Graphics2D g) {
+        return new MenuTile(imagePath, positionX, positionY, g);
+    }
 }

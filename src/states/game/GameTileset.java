@@ -25,4 +25,9 @@ public class GameTileset extends Tileset {
             }
         }
     }
+
+    @Override
+    protected Tile createTile(String imagePath, int positionX, int positionY, Graphics2D g) {
+        return new GameTile(imagePath, positionX, positionY, g);
+    }
 }
