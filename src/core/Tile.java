@@ -1,5 +1,7 @@
 package core;
 
+import core.doodads.Flower;
+import core.doodads.Tree;
 import rafgfxlib.Util;
 
 import java.awt.*;
@@ -8,41 +10,6 @@ import java.util.Random;
 
 @SuppressWarnings("unused")
 public abstract class Tile {
-    public class Flower {
-        public BufferedImage image;
-        public int positionX;
-        public int positionY;
-
-
-        public Flower(int tileWidth, int tileHeight) {
-            Random r = new Random();
-
-            Integer imageIndex = r.nextInt(5) + 1;
-            image = Util.loadImage("hexyAssets/flowers/" + imageIndex.toString() + ".png");
-
-            positionX = Math.abs(r.nextInt(tileWidth) - 12);
-            positionY = Math.abs(r.nextInt((int) Math.round(tileHeight / 2)) + (int) Math.round(tileHeight * 0.25) - 12);
-        }
-    }
-
-    public class Tree {
-        public BufferedImage image;
-        public int positionX;
-        public int positionY;
-
-        public Tree(int tileWidth, int tileHeight) {
-            Random r = new Random();
-
-            Integer imageIndex = r.nextInt(21) + 1;
-            image = Util.loadImage("hexyAssets/trees/" + imageIndex.toString() + ".png");
-
-            int imageWidth = image.getWidth();
-            int imageHeight = image.getHeight();
-
-            positionX = (tileWidth - imageWidth) / 2;
-            positionY = tileHeight / 2 - imageHeight;
-        }
-    }
 
     public static final int tileWidth = 65;
     public static final int tileHeight = 65;
@@ -54,7 +21,7 @@ public abstract class Tile {
     public int centerX, centerY;
     public int size;
 
-    public Polygon hex;
+    public Polygon hexagon;
 
     protected Graphics2D g;
 
@@ -75,15 +42,15 @@ public abstract class Tile {
         centerX = positionX + tileWidth / 2;
         centerY = positionY + tileHeight / 2;
         size = (int) (tileWidth / Math.sqrt(3));
-        hex = new Polygon();
+        hexagon = new Polygon();
 
         this.g = g;
 
         generateDoodads();
     }
 
-    public boolean containsPoint(Point a) {
-        return hex.contains(a);
+    public boolean containsPixel(int x, int y) {
+        return hexagon.contains(new Point(x, y));
     }
 
     protected void generateTree() {
@@ -119,4 +86,26 @@ public abstract class Tile {
 
     protected abstract void generateDoodads();
 
+    public Tile render(Graphics2D g) {
+        g.drawImage(image, positionX, positionY + offsetZ, null);
+
+        for (Flower flower : flowers) {
+            g.drawImage(flower.image, positionX + flower.positionX, positionY + flower.positionY + offsetZ, null);
+        }
+
+        if (tree != null) {
+            g.drawImage(tree.image, positionX + tree.positionX, positionY + tree.positionY + offsetZ, null);
+        }
+
+        return this;
+    }
+
+    public Polygon getHexagon() {
+        Polygon hexagon = new Polygon();
+        for (int i = 0; i < 6; i++) {
+            hexagon.addPoint((int) (centerX + (size * Math.cos((1 + i * 2) * Math.PI / 6))),
+                    (int) (centerY + 1 + ((size - 3.5) * Math.sin((1 + i * 2) * Math.PI / 6))));
+        }
+        return hexagon;
+    }
 }
