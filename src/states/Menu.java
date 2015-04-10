@@ -1,4 +1,5 @@
 package states;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -60,9 +61,9 @@ public class Menu extends GameState {
 
         BufferedImage itemUnselected = Util.loadImage("hexyAssets/menuItems/unselected.png");
 
-        for(int i = 0; i < menuItems.length; i++) {
+        for (int i = 0; i < menuItems.length; i++) {
             BufferedImage itemImage = itemUnselected;
-            if(selectedItem == i)
+            if (selectedItem == i)
                 itemImage = Util.loadImage("hexyAssets/menuItems/" + menuItems[i] + ".png");
 
             g.drawString(menuItems[i], 80, 500 + i * 80);
@@ -70,12 +71,12 @@ public class Menu extends GameState {
         }
 
         // Draw the tileset
-        
-       
+
+
         menuTileset.renderTileset(g);
-      //  g.drawPolygon(menuTileset.giveHex(selectedItem, selectedItem));
-      //  menuTileset.giveHex(selectedItem, selectedItem, g);
-       
+        //  g.drawPolygon(menuTileset.giveHex(selectedItem, selectedItem));
+        //  menuTileset.giveHex(selectedItem, selectedItem, g);
+
     }
 
     @Override
@@ -85,26 +86,6 @@ public class Menu extends GameState {
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
         handleMenuItemSelection();
-      System.out.println(menuTileset.getTilePosition(new Point(x,y)));
-      
-      
-      Point ij =menuTileset.getTilePosition(new Point(x,y)); 
-      System.out.println(ij);
-
-      
-      MenuTile clickedTile = (MenuTile) menuTileset.getTileFromPosition(ij.x, ij.y);
-      
-      if(clickedTile != null) {
-      int[][] neigbours = menuTileset.neighbours(clickedTile);
-      String s = "";
-      for(int i=0;i<6;i++){
-    	  for(int j = 0; j<2;j++)
-    		  s+=neigbours[i][j]+ " ";
-    	  System.out.println(s);
-    	  s="";
-    	 
-         }
-      }
     }
 
     @Override
@@ -114,13 +95,13 @@ public class Menu extends GameState {
 
     @Override
     public void handleMouseMove(int x, int y) {
-        if(x > 8 && x < 245 && y > 460) {
+        if (x > 8 && x < 245 && y > 460) {
             selectedItem = (y - 460) / 70;
         } else {
-           selectedItem = -1;
+            selectedItem = -1;
         }
-        
-     
+
+
     }
 
     @Override
@@ -133,7 +114,7 @@ public class Menu extends GameState {
         Return:     10
          */
 
-        switch(keyCode) {
+        switch (keyCode) {
             case 38:
                 selectedItem--;
                 break;
@@ -144,8 +125,8 @@ public class Menu extends GameState {
                 handleMenuItemSelection();
         }
 
-        if(selectedItem < 0) selectedItem = menuItems.length - 1;
-        if(selectedItem > menuItems.length - 1) selectedItem = 0;
+        if (selectedItem < 0) selectedItem = menuItems.length - 1;
+        if (selectedItem > menuItems.length - 1) selectedItem = 0;
     }
 
     @Override
@@ -154,7 +135,7 @@ public class Menu extends GameState {
     }
 
     private void handleMenuItemSelection() {
-        switch(selectedItem) {
+        switch (selectedItem) {
             case 0: // New game
                 System.out.println("We should now change the gamestate");
                 break;
