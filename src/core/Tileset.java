@@ -83,10 +83,10 @@ public abstract class Tileset {
     public void startExitAnimation() {
         animationInProgress = true;
 
-        Random r = new Random();
+       
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
-                tileset[iX][iY].offsetZAnimationDelay = 4 * (20 - iX - iY) + iX;
+                tileset[iX][iY].offsetZAnimationDelay = 4 * (20 - iX - iY) + 2*iX;
                 tileset[iX][iY].desiredOffsetZ = 900;
                 tileset[iX][iY].deltaZ = 50;
             }
