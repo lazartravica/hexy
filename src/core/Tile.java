@@ -32,6 +32,8 @@ public abstract class Tile {
     public int offsetZ = 900;
     public int desiredOffsetZ = 0;
     public int offsetZAnimationDelay;
+    
+    
 
     public Tile(String fileName, int positionX, int positionY, Graphics2D g) {
         image = Util.loadImage(fileName);
@@ -43,7 +45,7 @@ public abstract class Tile {
         centerY = this.positionY + tileHeight / 2;
         size = (int) (tileWidth / Math.sqrt(3));
         hexagon = new Polygon();
-
+        
         this.g = g;
 
         generateDoodads();

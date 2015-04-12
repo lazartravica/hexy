@@ -1,21 +1,26 @@
 package states.game;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+import rafgfxlib.Util;
 import core.Tile;
 import core.doodads.Flower;
-import rafgfxlib.Util;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GameTile extends Tile {
 
     public Player player = Player.NONE;
 
     public boolean visited = false;
-
+    Random r = new Random();
+    public int frameCounter = r.nextInt(60)+1;
     public BufferedImage RED_IMAGE = Util.loadImage("hexyAssets/tiles/red.png");
     public BufferedImage BLUE_IMAGE = Util.loadImage("hexyAssets/tiles/blue.png");
-
+    
+    
+    public BufferedImage waterSprite = Util.loadImage("hexyAssets/sprites/waterSprite.png");
+    
     public GameTile(String fileName, int coordX, int coordY, Graphics2D g) {
         super(fileName, coordX, coordY, g);
     }
@@ -46,7 +51,10 @@ public class GameTile extends Tile {
         } else if(player == Player.RED)
             g.drawImage(RED_IMAGE, positionX, positionY + offsetZ, null);
         else if(player == Player.BLUE)
-            g.drawImage(BLUE_IMAGE, positionX, positionY + offsetZ, null);
+            g.drawImage(waterSprite.getSubimage(0, frameCounter*89, 65, 89), positionX, positionY + offsetZ, null);
+    
+    frameCounter = (frameCounter+1)%60;
+    
     }
 
     public boolean changeState(Player currentTurn) {
