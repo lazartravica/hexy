@@ -28,6 +28,7 @@ public class EdgeBorder {
         for(int i = 0; i < size; i++) {
             positionX = offsetX;
             positionY = offsetY;
+            Player player = Player.RED;
             String fileName = "";
 
             switch(edge) {
@@ -40,24 +41,31 @@ public class EdgeBorder {
                     positionY += size * (int) Math.round(Tile.tileHeight * 0.75);
                     fileName = "hexyAssets/tiles/blue.png";
                     break;
-                case EAST:
+                case WEST:
                     positionX += (i * Tile.tileWidth / 2);
                     positionY += i * (int) Math.round(Tile.tileHeight * 0.75);
                     fileName = "hexyAssets/tiles/red.png";
                     break;
-                case WEST:
+                case EAST:
                     positionX += (size * Tile.tileWidth) + (i * Tile.tileWidth / 2);
                     positionY += i * (int) Math.round(Tile.tileHeight * 0.75);
                     fileName = "hexyAssets/tiles/red.png";
                     break;
             }
-            tiles[i] = new EdgeTile(fileName, positionX, positionY);
+            tiles[i] = new EdgeTile(edge, fileName, positionX, positionY);
         }
     }
 
     public void render(Graphics2D g) {
         for(Tile tile : tiles) {
             tile.render(g);
+        }
+    }
+
+    public void setAnimate(boolean animate) {
+        for(Tile tile : tiles) {
+            EdgeTile edgeTile = (EdgeTile) tile;
+            edgeTile.animate = animate;
         }
     }
 }

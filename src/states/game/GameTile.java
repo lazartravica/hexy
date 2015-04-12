@@ -15,8 +15,11 @@ public class GameTile extends Tile {
     public boolean visited = false;
     Random r = new Random();
 
-    
-    public int frameCounter = r.nextInt(60)+1;
+    public BufferedImage RED_IMAGE = Util.loadImage("hexyAssets/tiles/red.png");
+    public BufferedImage BLUE_IMAGE = Util.loadImage("hexyAssets/tiles/blue.png");
+
+    public int frameCounter = r.nextInt(60) + 1;
+
     public GameTile(String fileName, int coordX, int coordY, Graphics2D g) {
         super(fileName, coordX, coordY, g);
     }
@@ -33,7 +36,7 @@ public class GameTile extends Tile {
         image = Util.loadImage("hexyAssets/tiles/selected.png");
     }
 
-     
+
     public void render(Graphics2D g) {
         if (player == Player.NONE) {
             g.drawImage(image, positionX, positionY + offsetZ, null);
@@ -45,23 +48,22 @@ public class GameTile extends Tile {
             if (tree != null) {
                 g.drawImage(tree.image, positionX + tree.positionX, positionY + tree.positionY + offsetZ, null);
             }
-        } else if(player == Player.RED)
-        	{
-        
-        		g.drawImage(lavaSprite.getSubimage(frameCounter*65,0 , 65, 89), positionX, positionY + offsetZ, null);
-        	}
-          else if(player == Player.BLUE){
-        	  g.drawImage(waterSprite.getSubimage(frameCounter*65,0 , 65, 89), positionX, positionY + offsetZ, null);
-        	
-
-        }
-        frameCounter = (frameCounter+1)%60;
-	
-    
-    }
+        } else if (player == Player.RED)
+            if (visited)
+                g.drawImage(lavaSprite.getSubimage(frameCounter * 65, 0, 65, 89), positionX, positionY + offsetZ, null);
+            else
+                g.drawImage(RED_IMAGE, positionX, positionY + offsetZ, null);
+        else if (player == Player.BLUE)
+            if (visited)
+                g.drawImage(waterSprite.getSubimage(frameCounter * 65, 0, 65, 89), positionX, positionY + offsetZ, null);
+            else
+                g.drawImage(BLUE_IMAGE, positionX, positionY + offsetZ, null);
+        if(visited)
+            frameCounter = (frameCounter + 1) % 60;
+}
 
     public boolean changeState(Player currentTurn) {
-        if(player == Player.NONE) {
+        if (player == Player.NONE) {
             player = currentTurn;
             return true;
         }

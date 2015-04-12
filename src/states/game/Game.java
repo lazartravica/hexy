@@ -28,8 +28,8 @@ public class Game extends GameState {
         int screenWidth = host.getWidth();
         int screenHeight = host.getHeight();
 
-        eastBorder = new EdgeBorder(Edge.EAST, -40, 80);
-        westBorder = new EdgeBorder(Edge.WEST, 25, 80);
+        westBorder = new EdgeBorder(Edge.WEST, -40, 80);
+        eastBorder = new EdgeBorder(Edge.EAST, 25, 80);
         northBorder = new EdgeBorder(Edge.NORTH, -72, 30);
         southBorder = new EdgeBorder(Edge.SOUTH, -105, -17);
     }
@@ -73,11 +73,11 @@ public class Game extends GameState {
 
 
         northBorder.render(g);
-        westBorder.render(g);
+        eastBorder.render(g);
 
         gameTileset.renderTileset(g);
 
-        eastBorder.render(g);
+        westBorder.render(g);
         southBorder.render(g);
     }
 
@@ -91,8 +91,13 @@ public class Game extends GameState {
         GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
         if (gameTile != null) {
             if (gameTile.changeState(currentTurn)) {
-                if (gameTileset.checkWinningCondition(currentTurn))
+                if (gameTileset.checkWinningCondition(currentTurn)) {
                     System.out.println("GRAIN OF SANDDD");
+                    if(currentTurn == Player.RED)
+                        eastBorder.setAnimate(true);
+                    else if(currentTurn == Player.BLUE)
+                        southBorder.setAnimate(true);
+                }
 
                 if (currentTurn == Player.RED)
                     currentTurn = Player.BLUE;

@@ -71,8 +71,10 @@ public class GameTileset extends Tileset {
     public boolean checkWinningCondition(Player player) {
         for (int iX = 0; iX < horizontalSize; iX++) {
             for (int iY = 0; iY < verticalSize; iY++) {
-                GameTile gameTile = (GameTile) tileset[iX][iY];
-                gameTile.visited = false;
+                if(isPlayersTile(iX, iY, player)) {
+                    GameTile gameTile = (GameTile) tileset[iX][iY];
+                    gameTile.visited = false;
+                }
             }
         }
 
