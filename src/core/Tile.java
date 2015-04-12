@@ -33,6 +33,9 @@ public abstract class Tile {
     public int desiredOffsetZ = 0;
     public int offsetZAnimationDelay;
     
+    public static BufferedImage waterSprite = Util.loadImage("hexyAssets/sprites/waterSprite.png");
+    public static BufferedImage lavaSprite = Util.loadImage("hexyAssets/sprites/lavaSprite.png");
+    
     
 
     public Tile(String fileName, int positionX, int positionY, Graphics2D g) {
