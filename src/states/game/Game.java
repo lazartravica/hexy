@@ -3,7 +3,6 @@ package states.game;
 import rafgfxlib.GameHost;
 import rafgfxlib.GameHost.GFMouseButton;
 import rafgfxlib.GameState;
-import rafgfxlib.Util;
 
 import java.awt.*;
 
@@ -16,10 +15,23 @@ public class Game extends GameState {
     public static final Color RED_COLOR = new Color(233, 123, 51);
     public static final Color BLUE_COLOR = new Color(139, 255, 255);
 
+    private EdgeBorder eastBorder;
+    private EdgeBorder westBorder;
+    private EdgeBorder northBorder;
+    private EdgeBorder southBorder;
+
     public Game(GameHost host) {
         super(host);
 
         gameTileset = new GameTileset();
+
+        int screenWidth = host.getWidth();
+        int screenHeight = host.getHeight();
+
+        eastBorder = new EdgeBorder(Edge.EAST, -40, 80);
+        westBorder = new EdgeBorder(Edge.WEST, 25, 80);
+        northBorder = new EdgeBorder(Edge.NORTH, -72, 30);
+        southBorder = new EdgeBorder(Edge.SOUTH, -105, -17);
     }
 
     @Override
@@ -59,7 +71,14 @@ public class Game extends GameState {
             g.drawString("Blue player's turn", 15, sh - 40);
         }
 
+
+        northBorder.render(g);
+        westBorder.render(g);
+
         gameTileset.renderTileset(g);
+
+        eastBorder.render(g);
+        southBorder.render(g);
     }
 
     @Override
@@ -70,9 +89,9 @@ public class Game extends GameState {
     @Override
     public void handleMouseDown(int x, int y, GFMouseButton button) {
         GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
-        if(gameTile != null) {
-            if(gameTile.changeState(currentTurn)) {
-                if(gameTileset.checkWinningCondition(currentTurn))
+        if (gameTile != null) {
+            if (gameTile.changeState(currentTurn)) {
+                if (gameTileset.checkWinningCondition(currentTurn))
                     System.out.println("GRAIN OF SANDDD");
 
                 if (currentTurn == Player.RED)
@@ -91,7 +110,7 @@ public class Game extends GameState {
 
     @Override
     public void handleMouseMove(int x, int y) {
-        if(gameTileset.doneEntranceAnimation) {
+        if (gameTileset.doneEntranceAnimation) {
             gameTileset.removeNudges();
             GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
 
