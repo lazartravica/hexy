@@ -86,7 +86,7 @@ public abstract class Tile {
 
     protected abstract void generateDoodads();
 
-    public Tile render(Graphics2D g) {
+    public void render(Graphics2D g) {
         g.drawImage(image, positionX, positionY + offsetZ, null);
 
         for (Flower flower : flowers) {
@@ -96,8 +96,6 @@ public abstract class Tile {
         if (tree != null) {
             g.drawImage(tree.image, positionX + tree.positionX, positionY + tree.positionY + offsetZ, null);
         }
-
-        return this;
     }
 
     public Polygon getHexagon() {

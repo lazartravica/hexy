@@ -8,6 +8,6 @@ public class Main {
         host.setBackgroundClearColor(Menu.BACKGROUND_COLOR);
         new Menu(host);
         new Game(host);
-        host.setState("game");
+        host.setState("menu");
     }
 }

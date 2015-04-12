@@ -28,11 +28,11 @@ public class GameTile extends Tile {
 
     public void nudgeTile() {
         desiredOffsetZ = -24;
-        deltaZ = 3;
+        deltaZ = 6;
         image = Util.loadImage("hexyAssets/tiles/selected.png");
     }
 
-    public Tile render(Graphics2D g) {
+    public void render(Graphics2D g) {
         if (player == Player.NONE) {
             g.drawImage(image, positionX, positionY + offsetZ, null);
 
@@ -47,8 +47,6 @@ public class GameTile extends Tile {
             g.drawImage(RED_IMAGE, positionX, positionY + offsetZ, null);
         else if(player == Player.BLUE)
             g.drawImage(BLUE_IMAGE, positionX, positionY + offsetZ, null);
-
-        return this;
     }
 
     public boolean changeState(Player currentTurn) {

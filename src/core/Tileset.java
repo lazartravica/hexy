@@ -52,7 +52,7 @@ public abstract class Tileset {
         for (int iY = 0; iY < verticalSize; iY++) {
             for (int iX = 0; iX < horizontalSize; iX++) {
                 didAnimation = tileset[iX][iY].updateZOffset() || didAnimation;
-                tileset[iX][iY] = tileset[iX][iY].render(g);
+                tileset[iX][iY].render(g);
             }
         }
         animationInProgress = didAnimation;
