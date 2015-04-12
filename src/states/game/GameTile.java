@@ -1,21 +1,22 @@
 package states.game;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+import rafgfxlib.Util;
 import core.Tile;
 import core.doodads.Flower;
-import rafgfxlib.Util;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GameTile extends Tile {
 
     public Player player = Player.NONE;
 
     public boolean visited = false;
+    Random r = new Random();
 
-    public BufferedImage RED_IMAGE = Util.loadImage("hexyAssets/tiles/red.png");
-    public BufferedImage BLUE_IMAGE = Util.loadImage("hexyAssets/tiles/blue.png");
-
+    
+    public int frameCounter = r.nextInt(60)+1;
     public GameTile(String fileName, int coordX, int coordY, Graphics2D g) {
         super(fileName, coordX, coordY, g);
     }
@@ -32,6 +33,7 @@ public class GameTile extends Tile {
         image = Util.loadImage("hexyAssets/tiles/selected.png");
     }
 
+     
     public void render(Graphics2D g) {
         if (player == Player.NONE) {
             g.drawImage(image, positionX, positionY + offsetZ, null);
@@ -44,9 +46,18 @@ public class GameTile extends Tile {
                 g.drawImage(tree.image, positionX + tree.positionX, positionY + tree.positionY + offsetZ, null);
             }
         } else if(player == Player.RED)
-            g.drawImage(RED_IMAGE, positionX, positionY + offsetZ, null);
-        else if(player == Player.BLUE)
-            g.drawImage(BLUE_IMAGE, positionX, positionY + offsetZ, null);
+        	{
+        
+        		g.drawImage(lavaSprite.getSubimage(frameCounter*65,0 , 65, 89), positionX, positionY + offsetZ, null);
+        	}
+          else if(player == Player.BLUE){
+        	  g.drawImage(waterSprite.getSubimage(frameCounter*65,0 , 65, 89), positionX, positionY + offsetZ, null);
+        	
+
+        }
+        frameCounter = (frameCounter+1)%60;
+	
+    
     }
 
     public boolean changeState(Player currentTurn) {
