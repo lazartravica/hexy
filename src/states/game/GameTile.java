@@ -11,6 +11,8 @@ public class GameTile extends Tile {
 
     public Player player = Player.NONE;
 
+    public boolean visited = false;
+
     public BufferedImage RED_IMAGE = Util.loadImage("hexyAssets/tiles/red.png");
     public BufferedImage BLUE_IMAGE = Util.loadImage("hexyAssets/tiles/blue.png");
 

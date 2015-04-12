@@ -80,30 +80,6 @@ public abstract class Tileset {
         return new int[] {-1, -1};
     }
 
-    public int[][] neighbours(Tile tile) {
-        int[][] directions = new int[][]{{0, -1}, {-1, 0}, {1, -1}, {-1, 1}, {0, 1}, {1, 0}};
-
-        if (tile == null)
-            throw new IllegalArgumentException("Error: tile is out of bounds.");
-
-        boolean badNeighbour;
-        int[] tileIndices = getTileIndices(tile);
-        int[][] potentialNeighbours = new int[6][2];
-        LinkedList<Point> realNeighbours = new LinkedList<Point>();
-
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 2; j++) {
-                if (tileIndices[j] + directions[i][j] >= 0 && tileIndices[j] + directions[i][j] <= 10)
-                    potentialNeighbours[i][j] = tileIndices[j] + directions[i][j];
-                else {
-                    potentialNeighbours[i][j] = -1;
-                    badNeighbour = true;
-                }
-            }
-        }
-        return potentialNeighbours;
-    }
-
     public void startExitAnimation() {
         animationInProgress = true;
 

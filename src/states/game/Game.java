@@ -71,13 +71,17 @@ public class Game extends GameState {
     public void handleMouseDown(int x, int y, GFMouseButton button) {
         GameTile gameTile = (GameTile) gameTileset.pixelToTile(x, y);
         if(gameTile != null) {
-            if(gameTile.changeState(currentTurn))
-                if(currentTurn == Player.RED)
+            if(gameTile.changeState(currentTurn)) {
+                if(gameTileset.checkWinningCondition(currentTurn))
+                    System.out.println("GRAIN OF SANDDD");
+
+                if (currentTurn == Player.RED)
                     currentTurn = Player.BLUE;
                 else
                     currentTurn = Player.RED;
-        }
 
+            }
+        }
     }
 
     @Override
