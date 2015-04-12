@@ -14,7 +14,7 @@ public class EdgeTile extends Tile {
 
     public void render(Graphics2D g) {
         if(offsetZ != 0)
-            offsetZ += 30;
+            offsetZ += 20;
         g.drawImage(image, positionX, positionY - offsetZ, null);
     }
 

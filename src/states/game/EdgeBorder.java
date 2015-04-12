@@ -29,8 +29,7 @@ public class EdgeBorder {
             positionX = offsetX;
             positionY = offsetY;
             String fileName = "";
-//            int positionX = (iX * Tile.tileWidth) + (iY * Tile.tileWidth / 2) + offsetX;
-//            int positionY = iY * (int) Math.round(Tile.tileHeight * 0.75) + offsetY;
+
             switch(edge) {
                 case NORTH:
                     positionX += (i * Tile.tileWidth);
