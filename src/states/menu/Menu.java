@@ -20,8 +20,16 @@ public class Menu extends GameState {
     private int selectedItem = -1;
     private int queuedAction = -1;
 
+    private int menuItemsOffsetX = -400;
+    private int menuItemsDesiredOffsetX = 0;
+    private int menuItemsDeltaX = 10;
+
+    private BufferedImage bf = Util.loadImage("hexyAssets/sprites/lavaSprite.png");
+    private Component component;
+
     public Menu(GameHost host) {
         super(host);
+        component = host.getWindow();
 
         menuTileset = new MenuTileset();
 
@@ -51,6 +59,14 @@ public class Menu extends GameState {
     }
 
     public void render(Graphics2D g, int sw, int sh) {
+
+        // Move the menu on the X-axis items if necessary
+        if(menuItemsOffsetX > menuItemsDesiredOffsetX)
+            menuItemsOffsetX -= menuItemsDeltaX;
+        if(menuItemsOffsetX < menuItemsDesiredOffsetX)
+            menuItemsOffsetX += menuItemsDeltaX;
+
+
         // First fill the background with a sky blue.
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, sw, sh);
@@ -67,17 +83,12 @@ public class Menu extends GameState {
             if (selectedItem == i)
                 itemImage = Util.loadImage("hexyAssets/menuItems/" + menuItems[i] + ".png");
 
-            g.drawString(menuItems[i], 80, 500 + i * 80);
-            g.drawImage(itemImage, 10, 455 + i * 80, null);
+            g.drawString(menuItems[i], 80 + menuItemsOffsetX * (i + 1), 500 + i * 80);
+            g.drawImage(itemImage, 10 + menuItemsOffsetX * (i + 1), 455 + i * 80, null);
         }
 
         // Draw the tileset
-
-
         menuTileset.renderTileset(g);
-        //  g.drawPolygon(menuTileset.giveHex(selectedItem, selectedItem));
-        //  menuTileset.giveHex(selectedItem, selectedItem, g);
-
     }
 
     @Override
@@ -147,12 +158,15 @@ public class Menu extends GameState {
         switch (selectedItem) {
             case 0: // New game
                 menuTileset.startExitAnimation();
+                menuItemsDesiredOffsetX = -400;
                 break;
-            case 1: // Rules
+            case 1: // Exit
                 menuTileset.startExitAnimation();
+                menuItemsDesiredOffsetX = -400;
                 break;
         }
 
         queuedAction = selectedItem;
     }
+
 }

@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         GameHost host = new GameHost("Hexy", 1100, 700);
         host.setBackgroundClearColor(Menu.BACKGROUND_COLOR);
+        host.setHighQuality(true);
         new Menu(host);
         new Game(host);
-        host.setState("menu");
+        host.setState("game");
     }
 }
