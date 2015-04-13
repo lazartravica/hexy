@@ -9,6 +9,6 @@ public class Main {
         host.setHighQuality(true);
         new Menu(host);
         new Game(host);
-        host.setState("game");
+        host.setState("menu");
     }
 }
