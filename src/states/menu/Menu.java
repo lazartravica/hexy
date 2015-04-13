@@ -27,7 +27,6 @@ public class Menu extends GameState {
 
         menuItems = new String[]{
                 "New game",
-                "Rules",
                 "Exit",
         };
     }
@@ -92,10 +91,6 @@ public class Menu extends GameState {
                 if(!menuTileset.animationInProgress)
                     System.exit(0);
                 break;
-            case 2:
-                if(!menuTileset.animationInProgress)
-                    System.exit(0);
-                break;
         }
     }
 
@@ -154,9 +149,6 @@ public class Menu extends GameState {
                 menuTileset.startExitAnimation();
                 break;
             case 1: // Rules
-                menuTileset.startExitAnimation();
-                break;
-            case 2: // Exit
                 menuTileset.startExitAnimation();
                 break;
         }
